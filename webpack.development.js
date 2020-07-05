@@ -13,7 +13,8 @@ module.exports = merge(base, {
   // source map maps compressed files to original position in source file for debugging
   // TODO: the source-map devtool option is relatively slow, the docs recommend several other options for debugging in a dev env
   // https://webpack.js.org/configuration/devtool/
-  devtool: "source-map", // Show the source map so we can debug when developing locally
+  // devtool: "source-map", // Show the source map so we can debug when developing locally
+  devtool: "inline-source-map",
   devServer: {
     host: "localhost",
     port: "40992",

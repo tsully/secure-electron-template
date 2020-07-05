@@ -5,14 +5,24 @@ module.exports = {
   // since JS can be written for both server / browser, the "target" specifies what environment webpack should write for
   target: "web", // Our app can run without electron
   // The entry is where webpack begins assembling the dependency tree
-  entry: ["./app/src/index.jsx"], // The entry point of our app; these entry points can be named and we can also have multiple if we'd like to split the webpack bundle into smaller files to improve script loading speed between multiple pages of our app
+  entry: ["./app/src/index.tsx"], // The entry point of our app; these entry points can be named and we can also have multiple if we'd like to split the webpack bundle into smaller files to improve script loading speed between multiple pages of our app
   // the output is only created on npm run-prod-build
   output: {
     path: path.resolve(__dirname, "app/dist"), // Where all the output files get dropped after webpack is done with them
     filename: "bundle.js", // The name of the webpack bundle that's generated
   },
+  // If multiple files share the same name but have different extensions,
+  // webpack will resolve the one with the extension listed first in the array and skip the rest.
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
+  },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: "babel-loader",
+        exclude: /node_modules/,
+      },
       {
         // loads .html files in the app/src directory
         test: /\.(html)$/,
@@ -42,8 +52,7 @@ module.exports = {
         loader: "babel-loader",
         // the resolver helps webpack locate the absolute path of imported modules
         resolve: {
-          // If multiple files share the same name but have different extensions,
-          // webpack will resolve the one with the extension listed first in the array and skip the rest.
+          // TODO: ptoentially remove this resolve not sure if this resolve here is still necessary
           extensions: [".js", ".jsx", ".json"],
         },
       },
