@@ -6,12 +6,17 @@ const isMac = process.platform === "darwin";
 var MenuBuilder = function(mainWindow, appName) {
 
   // https://electronjs.org/docs/api/menu#main-process
+  // "roles" are predefined by Electron and used for standard actions
+  // https://www.electronjs.org/docs/api/menu-item
+  // you can also create custom menu items with their own "on click" functionality if you need to
+  // different roles are available between mac and windows
   let defaultTemplate = function() {
     return [
       // { role: "appMenu" }
       ...(isMac
         ? [
             {
+              // on Mac, the first menu item name should be the name of the app
               label: appName,
               submenu: [
                 {
@@ -204,6 +209,7 @@ var MenuBuilder = function(mainWindow, appName) {
     ];
   };
 
+  // constructs menu from default template
   return {
     buildMenu: function() {
       const menu = Menu.buildFromTemplate(defaultTemplate());
