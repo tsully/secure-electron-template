@@ -7,7 +7,6 @@
         "alias": {
           "Components": "./app/src/components",
           "Containers": "./app/src/containers",
-          "I18n": "./app/localization"
         }
       }
     ]

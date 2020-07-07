@@ -15,9 +15,9 @@ const Protocol = require("./protocol");
 // menu from another file to modularize the code
 const MenuBuilder = require("./menu");
 // TODO: Delete this package, it's only used for internationalization
-const i18nextBackend = require("i18next-electron-fs-backend");
+// const i18nextBackend = require("i18next-electron-fs-backend");
 // not sure if this a redux thing or if it's something else
-const Store = require("secure-electron-store").default;
+// const Store = require("secure-electron-store").default;
 const ContextMenu = require("secure-electron-context-menu").default;
 const path = require("path");
 const fs = require("fs");
@@ -66,7 +66,7 @@ async function createWindow() {
       // disables remote module. critical for ensuring that rendering process doesn't have access to node functionality
       enableRemoteModule: false,
       // TODO: can probably delete this
-      additionalArguments: [`storePath:${app.getPath("userData")}`],
+      // additionalArguments: [`storePath:${app.getPath("userData")}`],
       // path of preload script. preload is how the renderer page will have access to electron functionality
       preload: path.join(__dirname, "preload.js"),
     },
@@ -74,21 +74,21 @@ async function createWindow() {
 
   // TODO: Delete - this is only relevant to localization
   // Sets up main.js bindings for our i18next backend
-  i18nextBackend.mainBindings(ipcMain, win, fs);
+  // i18nextBackend.mainBindings(ipcMain, win, fs);
 
   // Sets up main.js bindings for our electron store;
   // callback is optional and allows you to use store in main process
-  const callback = function (success, store) {
-    console.log(
-      `${!success ? "Un-s" : "S"}uccessfully retrieved store in main process.`
-    );
-    console.log(store); // {"key1": "value1", ... }
-  };
+  // const callback = function (success, store) {
+  //   console.log(
+  //     `${!success ? "Un-s" : "S"}uccessfully retrieved store in main process.`
+  //   );
+  //   console.log(store); // {"key1": "value1", ... }
+  // };
 
-  const store = new Store({
-    path: app.getPath("userData"),
-  });
-  store.mainBindings(ipcMain, win, fs, callback);
+  // const store = new Store({
+  //   path: app.getPath("userData"),
+  // });
+  // store.mainBindings(ipcMain, win, fs, callback);
 
   // Sets up bindings for our custom context menu
   ContextMenu.mainBindings(ipcMain, win, Menu, isDev, {
@@ -194,7 +194,7 @@ app.on("window-all-closed", () => {
     app.quit();
   } else {
     // TODO: remove i18nextbackend
-    i18nextBackend.clearMainBindings(ipcMain);
+    // i18nextBackend.clearMainBindings(ipcMain);
     ContextMenu.clearMainBindings(ipcMain);
   }
 });
@@ -229,7 +229,6 @@ app.on("web-contents-created", (event, contents) => {
     }
   });
 
-  
   contents.on("will-redirect", (event, navigationUrl) => {
     const parsedUrl = new URL(navigationUrl);
     const validOrigins = [];
