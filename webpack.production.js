@@ -18,7 +18,7 @@ module.exports = merge(base, {
     // simplifies creation of HTML files that serve webpack bundles
     // creates a index.html file in the dist folder using index.html as a template
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "app/src/index-prod.html"),
+      template: path.resolve(__dirname, "app/src/public/index-prod.html"),
       filename: "index-prod.html",
     }),
     // enerate meta content for your Content Security Policy tag and input the correct data into your HTML template
