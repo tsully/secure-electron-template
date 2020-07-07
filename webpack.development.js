@@ -17,7 +17,7 @@ module.exports = merge(base, {
   devtool: "inline-source-map",
   devServer: {
     host: "localhost",
-    port: "40992",
+    port: "8080",
     hot: true, // Hot-reload this server if changes are detected
     compress: true, // Compress (gzip) files that are served
     contentBase: path.resolve(__dirname, "app/dist"), // Where we serve the local dev server's files from

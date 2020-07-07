@@ -6,25 +6,20 @@ const {
   ipcMain,
   Menu,
 } = require("electron");
+// NOTE: The
 const {
   default: installExtension,
-  REDUX_DEVTOOLS,
   REACT_DEVELOPER_TOOLS,
 } = require("electron-devtools-installer");
 const Protocol = require("./protocol");
 // menu from another file to modularize the code
 const MenuBuilder = require("./menu");
-// TODO: Delete this package, it's only used for internationalization
-// const i18nextBackend = require("i18next-electron-fs-backend");
-// not sure if this a redux thing or if it's something else
-// const Store = require("secure-electron-store").default;
-const ContextMenu = require("secure-electron-context-menu").default;
+
 const path = require("path");
 const fs = require("fs");
 
 const isDev = process.env.NODE_ENV === "development";
-// TODO change the port and make sure it matches webpack.development.js and package.json
-const port = 40992; // Hardcoded; needs to match webpack.development.js and package.json
+const port = 8080;
 const selfHost = `http://localhost:${port}`;
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -34,7 +29,7 @@ let menuBuilder;
 
 async function createWindow() {
   if (isDev) {
-    await installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
+    await installExtension([REACT_DEVELOPER_TOOLS])
       .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((err) => console.log("An error occurred: ", err));
   } else {
@@ -46,11 +41,18 @@ async function createWindow() {
 
   // Create the browser window.
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    // full screen
+    width: 1920,
+    height: 1080,
     // window title
-    title: `Getting started with secure-electron-template (v${app.getVersion()})`,
+    title: `ReacType`,
+    icon: path.join(__dirname, "../src/public/icons/png/256x256.png"),
+    win: {
+      icon: path.join(__dirname, "../src/public/icons/win/icon.ico"),
+      target: ["portable"],
+    },
     webPreferences: {
+      zoomFactor: 0.7,
       // enable devtools
       devTools: isDev,
       // crucial security feature - blocks rendering process from having access to node moduels
@@ -65,45 +67,9 @@ async function createWindow() {
       contextIsolation: true,
       // disables remote module. critical for ensuring that rendering process doesn't have access to node functionality
       enableRemoteModule: false,
-      // TODO: can probably delete this
-      // additionalArguments: [`storePath:${app.getPath("userData")}`],
       // path of preload script. preload is how the renderer page will have access to electron functionality
       preload: path.join(__dirname, "preload.js"),
     },
-  });
-
-  // TODO: Delete - this is only relevant to localization
-  // Sets up main.js bindings for our i18next backend
-  // i18nextBackend.mainBindings(ipcMain, win, fs);
-
-  // Sets up main.js bindings for our electron store;
-  // callback is optional and allows you to use store in main process
-  // const callback = function (success, store) {
-  //   console.log(
-  //     `${!success ? "Un-s" : "S"}uccessfully retrieved store in main process.`
-  //   );
-  //   console.log(store); // {"key1": "value1", ... }
-  // };
-
-  // const store = new Store({
-  //   path: app.getPath("userData"),
-  // });
-  // store.mainBindings(ipcMain, win, fs, callback);
-
-  // Sets up bindings for our custom context menu
-  ContextMenu.mainBindings(ipcMain, win, Menu, isDev, {
-    loudAlertTemplate: [
-      {
-        id: "loudAlert",
-        label: "AN ALERT!",
-      },
-    ],
-    softAlertTemplate: [
-      {
-        id: "softAlert",
-        label: "Soft alert",
-      },
-    ],
   });
 
   // Load app
@@ -154,15 +120,20 @@ async function createWindow() {
   // https://electronjs.org/docs/tutorial/security#1-only-load-secure-content;
   // The below code can only run when a scheme and host are defined, I thought
   // we could use this over _all_ urls
-  // ses.fromPartition(partition).webRequest.onBeforeRequest({urls:["http://localhost./*"]}, (listener) => {
-  //   if (listener.url.indexOf("http://") >= 0) {
-  //     listener.callback({
-  //       cancel: true
-  //     });
-  //   }
-  // });
+  ses
+    .fromPartition(partition)
+    .webRequest.onBeforeRequest(
+      { urls: ["http://localhost./*"] },
+      (listener) => {
+        if (listener.url.indexOf("http://") >= 0) {
+          listener.callback({
+            cancel: true,
+          });
+        }
+      }
+    );
 
-  menuBuilder = MenuBuilder(win, app.name);
+  menuBuilder = MenuBuilder(win, "ReacType");
   menuBuilder.buildMenu();
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "secure-electron-template",
+  "name": "reactype",
   "version": "4.2.2",
   "description": "The best way to build Electron apps with security in mind.",
   "private": true,
@@ -18,7 +18,7 @@
     "dist-all": "npm run prod-build && electron-builder --mac --linux --windows"
   },
   "build": {
-    "productName": "YourProductName",
+    "productName": "ReacType",
     "appId": "com.yourcompany|electron.yourproductname",
     "directories": {
       "buildResources": "resources"
