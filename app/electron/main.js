@@ -20,6 +20,7 @@ const MenuBuilder = require("./menu");
 const path = require("path");
 const fs = require("fs");
 
+console.log("NODE ENV is ", process.env.NODE_ENV);
 const isDev = process.env.NODE_ENV === "development";
 const port = 8080;
 const selfHost = `http://localhost:${port}`;
