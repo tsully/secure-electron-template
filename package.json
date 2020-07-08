@@ -1,5 +1,5 @@
 {
-  "name": "secure-electron-template",
+  "name": "reactype",
   "version": "4.2.2",
   "description": "The best way to build Electron apps with security in mind.",
   "private": true,
@@ -18,7 +18,7 @@
     "dist-all": "npm run prod-build && electron-builder --mac --linux --windows"
   },
   "build": {
-    "productName": "YourProductName",
+    "productName": "ReacType",
     "appId": "com.yourcompany|electron.yourproductname",
     "directories": {
       "buildResources": "resources"
@@ -85,14 +85,19 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.10.0",
+    "app-root-path": "^3.0.0",
     "connected-react-router": "^6.8.0",
+    "electron-splashscreen": "^1.0.0",
     "lodash": "4.17.15",
     "lodash.merge": "^4.6.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-i18next": "^11.7.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "secure-electron-context-menu": "^1.2.1"
+    "secure-electron-context-menu": "^1.2.1",
+    "uuid": "^8.2.0"
   }
 }

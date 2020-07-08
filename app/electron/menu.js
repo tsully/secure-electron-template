@@ -1,8 +1,7 @@
-const { Menu, MenuItem, BrowserWindow } = require("electron");
-// const i18nBackend = require("i18next-electron-fs-backend");
-// const whitelist = require("../localization/whitelist");
+const { Menu } = require("electron");
 const isMac = process.platform === "darwin";
 
+// Create a template for a menu and create menu using that template
 var MenuBuilder = function (mainWindow, appName) {
   // https://electronjs.org/docs/api/menu#main-process
   // "roles" are predefined by Electron and used for standard actions
@@ -49,7 +48,6 @@ var MenuBuilder = function (mainWindow, appName) {
             },
           ]
         : []),
-      // { role: "fileMenu" }
       {
         label: "File",
         submenu: [
@@ -62,7 +60,6 @@ var MenuBuilder = function (mainWindow, appName) {
               },
         ],
       },
-      // { role: "editMenu" }
       {
         label: "Edit",
         submenu: [
@@ -156,12 +153,7 @@ var MenuBuilder = function (mainWindow, appName) {
           },
         ],
       },
-      // language menu
-      {
-        label: "Language",
-        // submenu: whitelist.buildSubmenu(i18nBackend.changeLanguageRequest)
-      },
-      // { role: "windowMenu" }
+
       {
         label: "Window",
         submenu: [
@@ -200,7 +192,9 @@ var MenuBuilder = function (mainWindow, appName) {
             label: "Learn More",
             click: async () => {
               const { shell } = require("electron");
-              await shell.openExternal("https://electronjs.org");
+              await shell.openExternal(
+                "https://github.com/open-source-labs/ReacType"
+              );
             },
           },
         ],
