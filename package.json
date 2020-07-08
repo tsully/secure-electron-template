@@ -1,9 +1,28 @@
 {
   "name": "reactype",
-  "version": "4.2.2",
-  "description": "The best way to build Electron apps with security in mind.",
+  "version": "5.0.0",
+  "description": "Prototyping tool for React/Typescript Applications.",
   "private": true,
   "main": "app/electron/main.js",
+  "contributors": [
+    "Adam Singer",
+    "Charles Finocchiaro",
+    "Chelsey Fewer",
+    "Christian Padilla",
+    "Eliot Nguyen",
+    "Jesse Zuniga",
+    "Mitchel Severe",
+    "Natalie Vick",
+    "Sean Sadykoff",
+    "Shlomo Porges",
+    "Sophia Huttner",
+    "Tolga Mizrakci",
+    "Tony Ito-Cole",
+    "Tyler Sullberg",
+    "Fredo Chen",
+    "Aaron Bumanglag",
+    "Andrew Cho"
+  ],
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "dev-server": "cross-env NODE_ENV=development webpack-dev-server --config ./webpack.development.js",
@@ -19,7 +38,7 @@
   },
   "build": {
     "productName": "ReacType",
-    "appId": "com.yourcompany|electron.yourproductname",
+    "appId": "com.team-reactype.reactype",
     "directories": {
       "buildResources": "resources"
     },
@@ -40,7 +59,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reZach/secure-electron-template.git"
+    "url": "git+https://github.com/open-source-labs/ReacType.git"
   },
   "keywords": [
     "electron",
@@ -52,12 +71,11 @@
     "i18next",
     "boilerplate"
   ],
-  "author": "reZach",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/reZach/secure-electron-template/issues"
+    "url": "https://github.com/open-source-labs/ReacType/issues"
   },
-  "homepage": "https://github.com/reZach/secure-electron-template#readme",
+  "homepage": "https://github.com/open-source-labs/ReacType#readme",
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@babel/plugin-transform-react-jsx": "^7.10.3",
@@ -70,7 +88,7 @@
     "cross-env": "^7.0.2",
     "csp-html-webpack-plugin": "^4.0.0",
     "css-loader": "^3.6.0",
-    "electron": "^8.3.0",
+    "electron": "^9.1.0",
     "electron-builder": "^22.7.0",
     "electron-debug": "^3.1.0",
     "electron-devtools-installer": "^3.1.0",

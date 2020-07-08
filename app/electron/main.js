@@ -79,15 +79,16 @@ async function createWindow() {
   console.log("PATH is ", resolve("/"));
 
   //splash screen deets
+  // TODO: splash screen logo/icon aren't loading in dev mode
   const hideSplashscreen = initSplashScreen({
     mainWindow: win,
-    icon: resolve("../src/public/icons/png/64x64.png"),
+    icon: resolve("app/src/public/icons/png/64x64.png"),
     url: OfficeTemplate,
     width: 500,
     height: 300,
     brand: "OS Labs",
     productName: "ReacType",
-    logo: resolve("../src/public/icons/png/64x64.png"),
+    logo: resolve("app/src/public/icons/png/64x64.png"),
     color: "#3BBCAF",
     website: "www.reactype.io",
     text: "Initializing ...",
