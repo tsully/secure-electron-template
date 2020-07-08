@@ -6,7 +6,9 @@ const {
   ipcMain,
   Menu,
 } = require("electron");
-// NOTE: The
+// The splash screen is what appears while the app is loading
+const { initSplashScreen, OfficeTemplate } = require("electron-splashscreen");
+const { resolve } = require("app-root-path");
 const {
   default: installExtension,
   REACT_DEVELOPER_TOOLS,
@@ -46,6 +48,7 @@ async function createWindow() {
     height: 1080,
     // window title
     title: `ReacType`,
+    show: false,
     icon: path.join(__dirname, "../src/public/icons/png/256x256.png"),
     win: {
       icon: path.join(__dirname, "../src/public/icons/win/icon.ico"),
@@ -72,6 +75,23 @@ async function createWindow() {
     },
   });
 
+  console.log("PATH is ", resolve("/"));
+
+  //splash screen deets
+  const hideSplashscreen = initSplashScreen({
+    mainWindow: win,
+    icon: resolve("../src/public/icons/png/64x64.png"),
+    url: OfficeTemplate,
+    width: 500,
+    height: 300,
+    brand: "OS Labs",
+    productName: "ReacType",
+    logo: resolve("../src/public/icons/png/64x64.png"),
+    color: "#3BBCAF",
+    website: "www.reactype.io",
+    text: "Initializing ...",
+  });
+
   // Load app
   if (isDev) {
     // load app from webdev server
@@ -80,6 +100,12 @@ async function createWindow() {
     // load local file if in production
     win.loadURL(`${Protocol.scheme}://rse/index-prod.html`);
   }
+
+  // load page once window is loaded
+  win.once("ready-to-show", () => {
+    win.show();
+    hideSplashscreen();
+  });
 
   // Only do these things when in development
   if (isDev) {
